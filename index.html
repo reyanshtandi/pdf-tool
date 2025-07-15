@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="https://schema.org/WebApplication">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Primary Meta Tags -->
+    <title>PDF Tools - Free Online PDF Editor | Merge, Split, Convert PDFs</title>
+    <meta name="title" content="PDF Tools - Free Online PDF Editor | Merge, Split, Convert PDFs">
+    <meta name="description" content="Free online PDF tools to merge, split, convert, edit, and secure PDF files. 100% secure, no registration required. Works on all devices with 30+ PDF tools.">
+    <meta name="keywords" content="PDF tools, merge PDF, split PDF, convert PDF, edit PDF, PDF editor, online PDF, free PDF tools, PDF converter, PDF merger, PDF splitter">
+    <meta name="author" content="PDF Tools">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="7 days">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pdftools.com/">
+    <meta property="og:title" content="PDF Tools - Free Online PDF Editor | Merge, Split, Convert PDFs">
+    <meta property="og:description" content="Free online PDF tools to merge, split, convert, edit, and secure PDF files. 100% secure, no registration required. Works on all devices with 30+ PDF tools.">
+    <meta property="og:image" content="https://pdftools.com/images/og-image.jpg">
+    <meta property="og:site_name" content="PDF Tools">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://pdftools.com/">
+    <meta property="twitter:title" content="PDF Tools - Free Online PDF Editor | Merge, Split, Convert PDFs">
+    <meta property="twitter:description" content="Free online PDF tools to merge, split, convert, edit, and secure PDF files. 100% secure, no registration required. Works on all devices with 30+ PDF tools.">
+    <meta property="twitter:image" content="https://pdftools.com/images/twitter-image.jpg">
+    
+    <!-- Additional Meta Tags -->
+    <meta name="theme-color" content="#d62828">
+    <meta name="msapplication-TileColor" content="#d62828">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="PDF Tools">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://pdftools.com/">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📄</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📄</text></svg>">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "PDF Tools",
+        "description": "Free online PDF tools to merge, split, convert, edit, and secure PDF files. 100% secure, no registration required.",
+        "url": "https://pdftools.com",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "featureList": [
+            "Merge PDF files",
+            "Split PDF documents",
+            "Convert images to PDF",
+            "Convert Office documents to PDF",
+            "Add watermarks to PDF",
+            "Add page numbers to PDF",
+            "Protect PDF with password",
+            "OCR text extraction",
+            "PDF optimization",
+            "PDF editing tools"
+        ],
+        "screenshot": "https://pdftools.com/images/screenshot.jpg",
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "ratingCount": "1250"
+        }
+    }
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <script src="https://unpkg.com/tesseract.js@4.1.1/dist/tesseract.min.js"></script>
+    <script src="https://unpkg.com/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js"></script>
+    <script src="https://unpkg.com/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#d62828',
+                        'primary-dark': '#ba181b',
+                        'primary-light': '#f5f3f4'
+                    }
+                }
+            },
+            darkMode: 'class'
+        }
+    </script>
+    <style>
+        .tool-card {
+            transition: all 0.3s ease;
+        }
+        .tool-card:hover {
+            transform: translateY(-4px);
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .slide-in {
+            animation: slideIn 0.3s ease-out;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(0); }
+        }
+        .progress-bar {
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    <!-- Navigation -->
+    <nav class="bg-white dark:bg-gray-800 shadow-lg sticky top-0 z-50" role="navigation" aria-label="Main navigation">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <h1 class="text-2xl font-bold text-primary" itemprop="name">PDF Tools</h1>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <div class="relative group">
+                            <button class="text-gray-700 dark:text-gray-300 hover:text-primary px-3 py-2 rounded-md text-sm font-medium flex items-center" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-tools mr-2" aria-hidden="true"></i>
+                                Tools
+                                <i class="fas fa-chevron-down ml-1" aria-hidden="true"></i>
+                            </button>
+                            <div class="absolute left-0 mt-2 w-64 bg-white dark:bg-gray-800 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300" role="menu">
+                                <div class="py-2">
+                                    <a href="#organize" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">
+                                        <i class="fas fa-folder mr-2" aria-hidden="true"></i>Organize PDF
+                                    </a>
+                                    <a href="#convert-to" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">
+                                        <i class="fas fa-file-import mr-2" aria-hidden="true"></i>Convert to PDF
+                                    </a>
+                                    <a href="#convert-from" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">
+                                        <i class="fas fa-file-export mr-2" aria-hidden="true"></i>Convert from PDF
+                                    </a>
+                                    <a href="#edit" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">
+                                        <i class="fas fa-edit mr-2" aria-hidden="true"></i>Edit PDF
+                                    </a>
+                                    <a href="#security" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">
+                                        <i class="fas fa-shield-alt mr-2" aria-hidden="true"></i>PDF Security
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right side buttons -->
+                <div class="flex items-center space-x-4">
+                    <!-- Language Selector -->
+                    <div class="relative">
+                        <label for="languageSelector" class="sr-only">Select Language</label>
+                        <select id="languageSelector" class="bg-transparent text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-md px-3 py-1 text-sm" aria-label="Language selection">
+                            <option value="en">EN</option>
+                            <option value="hi">हिं</option>
+                            <option value="es">ES</option>
+                            <option value="fr">FR</option>
+                        </select>
+                    </div>
+
+                    <!-- Dark Mode Toggle -->
+                    <button id="darkModeToggle" class="p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" aria-label="Toggle dark mode">
+                        <i class="fas fa-moon dark:hidden" aria-hidden="true"></i>
+                        <i class="fas fa-sun hidden dark:inline" aria-hidden="true"></i>
+                    </button>
+
+                    <!-- Mobile menu button -->
+                    <button id="mobileMenuToggle" class="md:hidden p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" aria-label="Open mobile menu" aria-expanded="false">
+                        <i class="fas fa-bars" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="md:hidden hidden" role="menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white dark:bg-gray-800 border-t dark:border-gray-700">
+                <a href="#organize" class="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md" role="menuitem">
+                    <i class="fas fa-folder mr-2" aria-hidden="true"></i>Organize PDF
+                </a>
+                <a href="#convert-to" class="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md" role="menuitem">
+                    <i class="fas fa-file-import mr-2" aria-hidden="true"></i>Convert to PDF
+                </a>
+                <a href="#convert-from" class="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md" role="menuitem">
+                    <i class="fas fa-file-export mr-2" aria-hidden="true"></i>Convert from PDF
+                </a>
+                <a href="#edit" class="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md" role="menuitem">
+                    <i class="fas fa-edit mr-2" aria-hidden="true"></i>Edit PDF
+                </a>
+                <a href="#security" class="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md" role="menuitem">
+                    <i class="fas fa-shield-alt mr-2" aria-hidden="true"></i>PDF Security
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="mainContent" class="min-h-screen">
+        <!-- Hero Section -->
+        <section class="bg-gradient-to-r from-primary to-primary-dark text-white py-20" itemscope itemtype="https://schema.org/WebApplication">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 fade-in" itemprop="name">
+                    Free PDF Tools Online
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 fade-in" itemprop="description">
+                    Edit, convert, merge, split, and secure your PDF files - all in your browser. No registration required, 100% free and secure.
+                </p>
+                
+                <!-- Key Features for SEO -->
+                <div class="mb-8 fade-in">
+                    <p class="text-lg mb-4">Professional PDF editing tools for everyone</p>
+                    <ul class="text-base space-y-2 max-w-2xl mx-auto">
+                        <li>✓ Merge multiple PDF files into one document</li>
+                        <li>✓ Split large PDFs into separate pages</li>
+                        <li>✓ Convert images, Word, Excel, PowerPoint to PDF</li>
+                        <li>✓ Add watermarks, page numbers, and digital signatures</li>
+                        <li>✓ OCR text extraction from scanned documents</li>
+                        <li>✓ Password protect and secure your PDFs</li>
+                    </ul>
+                </div>
+                
+                <div class="flex flex-wrap justify-center gap-4 fade-in">
+                    <div class="bg-white/20 backdrop-blur-sm rounded-lg px-6 py-3">
+                        <i class="fas fa-shield-alt mr-2" aria-hidden="true"></i>
+                        100% Secure
+                    </div>
+                    <div class="bg-white/20 backdrop-blur-sm rounded-lg px-6 py-3">
+                        <i class="fas fa-bolt mr-2" aria-hidden="true"></i>
+                        Lightning Fast
+                    </div>
+                    <div class="bg-white/20 backdrop-blur-sm rounded-lg px-6 py-3">
+                        <i class="fas fa-mobile-alt mr-2" aria-hidden="true"></i>
+                        Mobile Friendly
+                    </div>
+                    <div class="bg-white/20 backdrop-blur-sm rounded-lg px-6 py-3">
+                        <i class="fas fa-cloud mr-2" aria-hidden="true"></i>
+                        No Upload Required
+                    </div>
+                </div>
+                <div class="mt-8 fade-in">
+                    <a href="assets/sample.pdf" download="sample.pdf" 
+                       class="inline-flex items-center bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 hover:transform hover:scale-105"
+                       aria-label="Download sample PDF file to test our tools">
+                        <i class="fas fa-download mr-2" aria-hidden="true"></i>
+                        Download Sample PDF to Test Tools
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recently Used Tools -->
+        <section id="recentTools" class="py-12 hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                    <i class="fas fa-clock mr-2"></i>Recently Used
+                </h2>
+                <div id="recentToolsGrid" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Recent tools will be populated here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Tools Sections -->
+        <!-- Organize PDF -->
+        <section id="organize" class="py-12" itemscope itemtype="https://schema.org/SoftwareApplication">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <header class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4" itemprop="name">
+                        <i class="fas fa-folder text-primary mr-3" aria-hidden="true"></i>Organize PDF Files
+                    </h2>
+                    <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto" itemprop="description">
+                        Powerful PDF organization tools to help you manage your documents efficiently. Merge multiple PDFs, split large files, remove unwanted pages, extract specific content, and rotate pages with ease.
+                    </p>
+                </header>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+                    <article class="tool-card bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 text-center cursor-pointer" onclick="openTool('merge-pdf')" itemscope itemtype="https://schema.org/SoftwareApplication">
+                        <div class="text-4xl text-primary mb-4">
+                            <i class="fas fa-compress-arrows-alt" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2" itemprop="name">Merge PDF</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm" itemprop="description">Combine multiple PDF files into one document. Perfect for consolidating reports, presentations, or related documents.</p>
+                    </article>
+                    
+                    <article class="tool-card bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 text-center cursor-pointer" onclick="openTool('split-pdf')" itemscope itemtype="https://schema.org/SoftwareApplication">
+                        <div class="text-4xl text-primary mb-4">
+                            <i class="fas fa-expand-arrows-alt" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2" itemprop="name">Split PDF</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm" itemprop="description">Extract pages into separate PDF files. Ideal for breaking down large documents into manageable sections.</p>
+                    </article>
+                    
+                    <article class="tool-card bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 text-center cursor-pointer" onclick="openTool('remove-pages')" itemscope itemtype="https://schema.org/SoftwareApplication">
+                        <div class="text-4xl text-primary mb-4">
+                            <i class="fas fa-trash-alt" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2" itemprop="name">Remove Pages</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm" itemprop="description">Delete unwanted pages from your PDF documents. Clean up your files by removing blank or unnecessary pages.</p>
+                    </article>
+                    
+                    <article class="tool-card bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 text-center cursor-pointer" onclick="openTool('extract-pages')" itemscope itemtype="https://schema.org/SoftwareApplication">
+                        <div class="text-4xl text-primary mb-4">
+                            <i class="fas fa-file-export" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2" itemprop="name">Extract Pages</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm" itemprop="description">Extract specific pages from PDF documents. Create new PDFs with only the pages you need.</p>
+                    </article>
+                    
+                    <article class="tool-card bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 text-center cursor-pointer" onclick="openTool('rotate-pdf')" itemscope itemtype="https://schema.org/SoftwareApplication">
+                        <div class="text-4xl text-primary mb-4">
+                            <i class="fas fa-redo-alt" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2" itemprop="name">Rotate PDF</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm" itemprop="description">Rotate PDF pages to correct orientation. Fix upside-down or sideways pages in your documents.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Convert to PDF -->
+        <section id="convert-to" class="py-12 bg-gray-100 dark:bg-gray-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">
+                    <i class="fas fa-file-import text-primary mr-3"></i>Convert to PDF
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+                    <div class="tool-card bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 text-center cursor-pointer" onclick="openTool('jpg-to-pdf')">
+                        <div class="text-4xl text-primary mb-4">
+                            <i class="fas fa-image"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">JPG to PDF</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Convert images to PDF</p>
+                    </div>
+                    <div class="tool-card bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 text-center cursor-pointer" onclick="openTool('word-to-pdf')">
+                        <div class="text-4xl text-primary mb-4">
+                            <i class="fas fa-file-word"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Word to PDF</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Convert DOCX files to PDF</p>
+                    </div>
+                    <div class="tool-card bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 text-center cursor-pointer" onclick="openTool('powerpoint-to-pdf')">
+                        <div class="text-4xl text-primary mb-4">
+                            <i class="fas fa-file-powerpoint"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">PowerPoint to PDF</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Convert PPTX to PDF</p>
+                    </div>
+                    <div class="tool-card bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 text-center cursor-pointer" onclick="openTool('excel-to-pdf')">
+                        <div class="text-4xl text-primary mb-4">
+                            <i class="fas fa-file-excel"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Excel to PDF</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Convert XLSX to PDF</p>
+                    </div>
+                    <div class="tool-card bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 text-center cursor-pointer" onclick="openTool('html-to-pdf')">
+                        <div class="text-4xl text-primary mb-4">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">HTML to PDF</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Convert web pages to PDF</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Convert from PDF -->
+        <section id="convert-from" class="py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">
+                    <i class="fas fa-file-export text-primary mr-3"></i>Convert from PDF
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+                    <div class="tool-card bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 text-center cursor-pointer" onclick="openTool('pdf-to-jpg')">
+                        <div class="text-4xl text-primary mb-4">
+                            <i class="fas fa-image"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">PDF to JPG</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Extract pages as images</p>
+                    </div>
+                    <div class="tool-card bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 text-center cursor-pointer" onclick="openTool('pdf-to-word')">
+                        <div class="text-4xl text-primary mb-4">
+                            <i class="fas fa-file-word"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">PDF to Word</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Convert PDF to DOCX</p>
+                    </div>
+                    <div class="tool-card bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 text-center cursor-pointer" onclick="openTool('pdf-to-powerpoint')">
+                        <div class="text-4xl text-primary mb-4">
+                            <i class="fas fa-file-powerpoint"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">PDF to PowerPoint</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Convert PDF to PPTX</p>
+                    </div>
+                    <div class="tool-card bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 text-center cursor-pointer" onclick="openTool('pdf-to-excel')">
+                        <div class="text-4xl text-primary mb-4">
+                            <i class="fas fa-file-excel"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">PDF to Excel</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Convert PDF to XLSX</p>
+                    </div>
+                    <div class="tool-card bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 text-center cursor-pointer" onclick="openTool('pdf-to-pdfa')">
+                        <div class="text-4xl text-primary mb-4">
+                            <i class="fas fa-file-archive"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">PDF to PDF/A</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Convert to archival format</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Edit PDF -->
+        <section id="edit" class="py-12 bg-gray-100 dark:bg-gray-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">
+                    <i class="fas fa-edit text-primary mr-3"></i>Edit PDF
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <div class="tool-card bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 text-center cursor-pointer" onclick="openTool('add-page-numbers')">
+                        <div class="text-4xl text-primary mb-4">
+                            <i class="fas fa-list-ol"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Add Page Numbers</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Number your pages</p>
+                    </div>
+                    <div class="tool-card bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 text-center cursor-pointer" onclick="openTool('add-watermark')">
+                        <div class="text-4xl text-primary mb-4">
+                            <i class="fas fa-tint"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Add Watermark</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Add text or image watermark</p>
+                    </div>
+                    <div class="tool-card bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 text-center cursor-pointer" onclick="openTool('crop-pdf')">
+                        <div class="text-4xl text-primary mb-4">
+                            <i class="fas fa-crop-alt"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Crop PDF</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Trim page margins</p>
+                    </div>
+                    <div class="tool-card bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 text-center cursor-pointer" onclick="openTool('edit-text')">
+                        <div class="text-4xl text-primary mb-4">
+                            <i class="fas fa-font"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Edit Text</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Modify PDF text content</p>
+                    </div>
+                    <div class="tool-card bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 text-center cursor-pointer" onclick="openTool('compare-pdfs')">
+                        <div class="text-4xl text-primary mb-4">
+                            <i class="fas fa-not-equal"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Compare PDFs</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Find differences between files</p>
+                    </div>
+                    <div class="tool-card bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 text-center cursor-pointer" onclick="openTool('sign-pdf')">
+                        <div class="text-4xl text-primary mb-4">
+                            <i class="fas fa-signature"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Sign PDF</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Add digital signature</p>
+                    </div>
+                    <div class="tool-card bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 text-center cursor-pointer" onclick="openTool('redact-pdf')">
+                        <div class="text-4xl text-primary mb-4">
+                            <i class="fas fa-marker"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Redact PDF</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Black out sensitive information</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PDF Security -->
+        <section id="security" class="py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">
+                    <i class="fas fa-shield-alt text-primary mr-3"></i>PDF Security
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <div class="tool-card bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 text-center cursor-pointer" onclick="openTool('unlock-pdf')">
+                        <div class="text-4xl text-primary mb-4">
+                            <i class="fas fa-unlock"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Unlock PDF</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Remove password protection</p>
+                    </div>
+                    <div class="tool-card bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 text-center cursor-pointer" onclick="openTool('protect-pdf')">
+                        <div class="text-4xl text-primary mb-4">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Protect PDF</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Add password protection</p>
+                    </div>
+                    <div class="tool-card bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 text-center cursor-pointer" onclick="openTool('repair-pdf')">
+                        <div class="text-4xl text-primary mb-4">
+                            <i class="fas fa-wrench"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Repair PDF</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Fix corrupted files</p>
+                    </div>
+                    <div class="tool-card bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 text-center cursor-pointer" onclick="openTool('optimize-pdf')">
+                        <div class="text-4xl text-primary mb-4">
+                            <i class="fas fa-compress"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Optimize PDF</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Reduce file size</p>
+                    </div>
+                    <div class="tool-card bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 text-center cursor-pointer" onclick="openTool('ocr-pdf')">
+                        <div class="text-4xl text-primary mb-4">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">OCR PDF</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Extract text from scanned PDFs</p>
+                    </div>
+                    <div class="tool-card bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 text-center cursor-pointer" onclick="openTool('scan-to-pdf')">
+                        <div class="text-4xl text-primary mb-4">
+                            <i class="fas fa-scanner"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Scan to PDF</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Convert scanned images to PDF</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h3 class="text-2xl font-bold mb-4">PDF Tools</h3>
+                <p class="text-gray-400 mb-6">Free online PDF tools for everyone</p>
+                <div class="flex justify-center space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </div>
+                <div class="mt-8 pt-8 border-t border-gray-700">
+                    <p class="text-gray-400 text-sm">
+                        © 2024 PDF Tools. All rights reserved. | Privacy Policy | Terms of Service
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Tool Modal Container -->
+    <div id="toolModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 id="toolModalTitle" class="text-2xl font-bold text-gray-900 dark:text-white"></h2>
+                        <button onclick="closeToolModal()" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                            <i class="fas fa-times text-2xl"></i>
+                        </button>
+                    </div>
+                    <div id="toolModalContent">
+                        <!-- Tool content will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/tools.js"></script>
+    <script src="js/pdf-utils.js"></script>
+</body>
+</html>
+
